@@ -151,8 +151,8 @@ class Home extends Component
 
     public function updatedSelectedMatch($value)
     {
-        if (!$this->api)
-            $this->initLol();
+
+        $this->initLol();
         $this->selectedTime = 0;
         $this->match = $this->api->getMatch($this->selectedMatch)->getData()['info'];
 
@@ -188,8 +188,8 @@ class Home extends Component
 
     public function updatedSummonerName($value)
     {
-        if (!$this->api)
-            $this->initLol();
+
+        $this->initLol();
         $this->getMatchIds();
     }
 
