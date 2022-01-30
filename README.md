@@ -1,4 +1,17 @@
-### Website to play with items/ stats on match history
+## Website to change items/stats on euw match history
 
-![img1](https://github.com/gquesnot/lolTallStack/public/img/img_with_shop.png)
-![img1](https://github.com/gquesnot/lolTallStack/public/img/without_shop.png)
+![img_3.png](img_3.png)
+![img_5.png](img_5.png)
+ 
+
+## Installation
+copy .env.exemple as .env and configure it to your needs (DB and RIOT_API_KEY)
+```bash
+composer install
+php artisan optimize
+
+npm install
+npm run dev
+
+php artisan serve
+```
