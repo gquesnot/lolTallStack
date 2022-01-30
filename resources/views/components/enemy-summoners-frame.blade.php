@@ -7,7 +7,7 @@
         <th class="px-3">Magic Resit</th>
         <th class="px-3">Physical Damage<br> Taken</th>
         <th class="px-3">Magical Damage<br> Taken</th>
-        <th class="px-3">AD Taken</th>
+        <th class="px-3">DPS received </th>
     </tr>
 
 
