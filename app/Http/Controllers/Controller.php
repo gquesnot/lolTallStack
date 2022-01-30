@@ -152,7 +152,7 @@ class Controller extends BaseController
         $version = $this->api->getStaticVersions()[0];
         $this->loadItems();
         $items = Item::all()->filter(function ($item){
-            return ! str_contains($item->tags, 'Consumable') && ! str_contains($item->tags, 'Jungle') && ! str_contains($item->tags, 'Trinket');
+            return ! str_contains($item->tags, 'Consumable') && ! str_contains($item->tags, 'Jungle') && ! str_contains($item->tags, 'Trinket') && $item->tags !== "" && $item->tags !== "Active";
         });
         $newItemList = [];
         foreach($items as $id => $item){

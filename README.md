@@ -1,4 +1,4 @@
-## Website to change items/stats on euw match history
+## Website to do theory craft on euw League of Legend match history timeline
 
 ![img_6.png](img_6.png)
 ![img_5.png](img_5.png)
@@ -15,3 +15,8 @@ npm run dev
 
 php artisan serve
 ```
+
+## Future improvements
+- add masteries and runes
+- add onHit damage in dps (guinsoo already done)
+- add items passive / active  and champs spells for Combo damage 
