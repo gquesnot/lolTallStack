@@ -99,10 +99,12 @@ class Home extends Component
     public ?string $participantId = null;
     public ?array $summoners;
 
-    public ?array $matchTimeline;
+    public ?array $matchTimeline= [];
     public ?int $selectedTime = 0;
 
     public ?Collection  $currentTimeline;
+
+    public int $maxTimeLine=0;
     public ?array $participantFrame;
     public ?array $enemyFrames;
 
@@ -157,6 +159,7 @@ class Home extends Component
         $this->match = $this->api->getMatch($this->selectedMatch)->getData()['info'];
 
         $this->matchTimeline = json_decode($this->getMatchTimeline($this->selectedMatch), true)['info'];
+        $this->maxTimeLine = count($this->matchTimeline['frames']) - 1;
         $this->summoners = $this->match['participants'];
         foreach ($this->summoners as $idx => $summoner) {
             $items = [];

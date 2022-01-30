@@ -11,13 +11,11 @@ class EnemySummonersFrame extends Component
      *
      * @return void
      */
-    public ?array $enemyFrames;
-    public ?array $participantFrame;
 
-    public function __construct($enemyFrames, $participantFrame)
+
+    public function __construct( )
     {
-        $this->enemyFrames = $enemyFrames;
-        $this->participantFrame = $participantFrame;
+
     }
 
 

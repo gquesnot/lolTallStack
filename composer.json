@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
+        "ext-simplexml": "^7.4",
         "dolejska-daniel/riot-api": "^5",
         "dolejska-daniel/riot-api-league": "^1",
         "fruitcake/laravel-cors": "^2.0",
@@ -15,6 +16,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.8",
+        "oscarotero/html-parser": "^0.1.6",
         "psr/http-client": "^1.0",
         "simivar/riot-php": "^1.0",
         "wimski/laravel-psr-http": "^1.0"

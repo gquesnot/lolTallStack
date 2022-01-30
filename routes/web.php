@@ -15,4 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome')->name('home');
+Route::get('/summoner/{summonerName}', [Controller::class, 'getSummoner']);
+Route::get('/summoner/{summonerName}/{matchId}', [Controller::class, 'getSummonerMatch']);
+Route::get('/get_items', [Controller::class, 'allItems']);
+
+
 Route::get('/update_items', [Controller::class, 'loadItems']);

@@ -1,5 +1,8 @@
 import Alpine from 'alpinejs';
+import lolClass from './lol/lolClass';
+
 window.Alpine = Alpine;
+    Alpine.data('lolClass', lolClass)
 Alpine.start();
 
 /**

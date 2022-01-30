@@ -1,70 +1,81 @@
 <div class="grid grid-cols-2">
 
     <div>
-        Current Gold (total with items):
+        Total Gold :
+    </div>
+    <div x-text="totalGold">
     </div>
     <div>
-        {{$currentGold}}
+        Current Gold :
+    </div>
+    <div x-text="currentGold">
     </div>
     <div>
         AD:
     </div>
-    <div>
-        {{$participantFrame['championStats']['attackDamage']}}
+    <div x-text="round(participantFrame.stats.ad)">
     </div>
     <div>
         AS:
     </div>
-    <div>
-        {{($participantFrame['championStats']['attackSpeed'] / 100)}}
+    <div x-text="round(participantFrame.stats.as, 2)">
     </div>
     <div>
         CRIT:
     </div>
-    <div>
-        ??
+    <div x-text="round(participantFrame.stats.crit * 100) + '%'">
+
     </div>
     <div>
         ARMOR PEN:
     </div>
-    <div>
-        {{$participantFrame['championStats']['armorPen']}} + {{$participantFrame['championStats']['armorPenPercent']}}% +? {{$participantFrame['championStats']['bonusArmorPenPercent']}}%
+    <div >
+        <span  x-text="round(participantFrame.stats.armorPen)"></span>
+        +
+        <span x-text="round(participantFrame.stats.armorPenPercent*100) + '%'"></span>
+        +
+        <span x-text="round(participantFrame.stats.armorPenBonusPercent*100) + '%'"></span>
     </div>
     <div>
         AP:
     </div>
-    <div>
-        {{$participantFrame['championStats']['abilityPower']}}
+    <div  x-text="round(participantFrame.stats.ap)">
     </div>
     <div>
         MAGIC PEN:
     </div>
     <div>
-        {{$participantFrame['championStats']['magicPen']}} + {{$participantFrame['championStats']['magicPenPercent']}}% +? {{$participantFrame['championStats']['bonusMagicPenPercent']}}%
+        <span  x-text="round(participantFrame.stats.magicPen)"></span>
+        +
+        <span x-text="round(participantFrame.stats.magicPenPercent*100) + '%'"></span>
+        +
+        <span x-text="round(participantFrame.stats.magicPenBonusPercent*100) + '%'"></span>
     </div>
     <div>
         HP:
     </div>
-    <div>
-        {{$participantFrame['championStats']['healthMax']}}
+    <div x-text="round(participantFrame.stats.hp)">
     </div>
     <div>
         ARMOR:
     </div>
-    <div>
-        {{$participantFrame['championStats']['armor']}}
+    <div x-text="round(participantFrame.stats.armor)">
+
     </div>
     <div>
         MAGIC RESIST:
     </div>
+    <div  x-text="round(participantFrame.stats.mr)">
+    </div>
     <div>
-        {{$participantFrame['championStats']['magicResist']}}
+        CDR:
+    </div>
+    <div  x-text="round(participantFrame.stats.cdr *100) + '%'">
     </div>
     <div>
         DPS:
     </div>
-    <div>
-        {{round($participantFrame['championStats']['dps'],2)}}
+    <div  x-text="`${round(participantFrame.stats.dps)} = (${round(participantFrame.stats.dps - participantFrame.stats.critDps)} + crit: ${round(participantFrame.stats.critDps)})`">
     </div>
 
 

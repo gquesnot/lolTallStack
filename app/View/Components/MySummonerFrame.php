@@ -7,15 +7,11 @@ use Illuminate\View\Component;
 class MySummonerFrame extends Component
 {
 
-    public ?array $participantFrame;
-    public int $currentGold = 0;
 
 
-
-    public function __construct($participantFrame, $currentGold)
+    public function __construct()
     {
-        $this->participantFrame = $participantFrame;
-        $this->currentGold = $currentGold;
+
     }
 
     /**
