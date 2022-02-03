@@ -85,7 +85,7 @@
                                     </template>
                                 </div>
                                 <div class="items-center self-center">
-                                    <h5 class="title">Actual Gold: <span x-html="currentGold"></span></h5>
+                                    <h5 class="title">Current Gold: <span x-html="currentGold"></span></h5>
                                 </div>
                                 <div></div>
                             </div>

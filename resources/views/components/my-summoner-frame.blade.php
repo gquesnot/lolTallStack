@@ -1,83 +1,151 @@
-<div class="grid grid-cols-2">
+<div class="flex flex-col">
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 align-middle inline-block min-w-full sm:px-3 lg:p2-8">
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Stat
+                        </th>
+                        <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Value
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Odd row -->
+                    <tr class="bg-white">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    Total Gold :
 
-    <div>
-        Total Gold :
-    </div>
-    <div x-text="totalGold">
-    </div>
-    <div>
-        Current Gold :
-    </div>
-    <div x-text="currentGold">
-    </div>
-    <div>
-        AD:
-    </div>
-    <div x-text="round(participantFrame.stats.ad)">
-    </div>
-    <div>
-        AS:
-    </div>
-    <div x-text="round(participantFrame.stats.as, 2)">
-    </div>
-    <div>
-        CRIT:
-    </div>
-    <div x-text="round(participantFrame.stats.crit * 100) + '%'">
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="totalGold">
 
-    </div>
-    <div>
-        ARMOR PEN:
-    </div>
-    <div >
-        <span  x-text="round(participantFrame.stats.armorPen)"></span>
-        +
-        <span x-text="round(participantFrame.stats.armorPenPercent*100) + '%'"></span>
-        +
-        <span x-text="round(participantFrame.stats.armorPenBonusPercent*100) + '%'"></span>
-    </div>
-    <div>
-        AP:
-    </div>
-    <div  x-text="round(participantFrame.stats.ap)">
-    </div>
-    <div>
-        MAGIC PEN:
-    </div>
-    <div>
-        <span  x-text="round(participantFrame.stats.magicPen)"></span>
-        +
-        <span x-text="round(participantFrame.stats.magicPenPercent*100) + '%'"></span>
-        +
-        <span x-text="round(participantFrame.stats.magicPenBonusPercent*100) + '%'"></span>
-    </div>
-    <div>
-        HP:
-    </div>
-    <div x-text="round(participantFrame.stats.hp)">
-    </div>
-    <div>
-        ARMOR:
-    </div>
-    <div x-text="round(participantFrame.stats.armor)">
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    Current Gold :
 
-    </div>
-    <div>
-        MAGIC RESIST:
-    </div>
-    <div  x-text="round(participantFrame.stats.mr)">
-    </div>
-    <div>
-        CDR:
-    </div>
-    <div  x-text="round(participantFrame.stats.cdr *100) + '%'">
-    </div>
-    <div>
-        DPS:
-    </div>
-    <div  x-text="`${round(participantFrame.stats.dps)} = (${round(participantFrame.stats.dps - participantFrame.stats.critDps)} + crit: ${round(participantFrame.stats.critDps)})`">
-    </div>
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="currentGold">
 
+                        </td>
+                    </tr>
+                    <tr class="bg-white">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    AD:
 
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="round(participantFrame.stats.ad)">
 
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    AS:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="round(participantFrame.stats.as, 2)">
+
+                        </td>
+                    </tr>
+                    <tr class="bg-white">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    CRIT:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="round(participantFrame.stats.crit * 100) + '%'">
+
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    ARMOR PEN:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500" colspan="" x-text="round(participantFrame.stats.armorPen) + ' + ' + round(participantFrame.stats.armorPenPercent *100) + '% + ' + round(participantFrame.stats.armorPenBonusPercent*100) + '%' ">
+
+     >
+                        </td>
+                    </tr>
+                    <tr class="bg-white">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    AP:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="round(participantFrame.stats.ap)">
+
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    MAGIC PEN:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500" x-text="round(participantFrame.stats.magicPen) + ' + ' + round(participantFrame.stats.magicPenPercent *100) + '% + ' + round(participantFrame.stats.magicPenBonusPercent*100) + '%' ">
+                        </td>
+                    </tr>
+                    <tr class="bg-white">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    HP:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                         x-text="round(participantFrame.stats.hp)">
+
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    ARMOR:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="round(participantFrame.stats.armor)">
+
+                        </td>
+                    </tr>
+                    <tr class="bg-white">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    MAGIC RESIST:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="round(participantFrame.stats.mr)">
+
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    CDR:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="round(participantFrame.stats.cdr *100) + '%'">
+
+                        </td>
+                    </tr>
+                    <tr class="bg-white">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    DPS:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="`${round(participantFrame.stats.dps)} = (${round(participantFrame.stats.dps - participantFrame.stats.critDps)} + crit: ${round(participantFrame.stats.critDps)})`">
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

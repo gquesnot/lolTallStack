@@ -6,7 +6,7 @@ const v8 = require('v8');
 class Stats {
     ad = 0
     ap = 0
-    as = 0
+    as = 1
     crit = 0
     armorPen = 0
     armorPenPercent = 0
@@ -24,8 +24,13 @@ class Stats {
     apTakenPercent = 0
     adReceive = 0
     mr = 0
-    ah= 0
+    ah = 0
     cdr = 0
+    baseAs = 0
+    adaptative
+    onHitAd = 0
+    onHitAp = 0
+
 
     constructor() {
     }
@@ -97,7 +102,38 @@ export default () => ({
     enemyParticipantsFrame: null,
     openModal: false,
     toggleChangeItems: true,
-
+    perks: {
+        5002: {
+            key: 'armor',
+            value: 6
+        },
+        5008: {
+            key: 'adaptative',
+            value: {
+                ad: 5.4,
+                ap: 9
+            }
+        },
+        5001: {
+            key: 'health',
+            value: {
+                base: 7.7,
+                perLevel: 7.35
+            }
+        },
+        5007: {
+            key: 'ah',
+            value: 8
+        },
+        5005: {
+            key: 'as',
+            value: 0.1
+        },
+        5003: {
+            key: 'mr',
+            value: 8
+        }
+    },
     items: [],
     modItems: [],
     myItemList: [],
@@ -125,18 +161,20 @@ export default () => ({
     fillTimelineInParticipants(matchTimelines) {
         let newMatchTimeline = [];
         let newParticipants = [];
-
+        console.log(this.participants, matchTimelines.frames[0].participantFrames)
         for (let i in this.participants) {
             let idx = parseInt(i) + 1
-
-            let participant = this.participants[idx]
+            console.log(i, idx)
+            let participant = this.participants[i]
 
             this.participants[i].stats = new Stats();
+            console.log('participant', participant)
             let frames = [];
             for (let matchTimeline of matchTimelines.frames) {
                 let tmp = {}
                 tmp.lolStats = matchTimeline.participantFrames[idx]
-                tmp.baseStats = this.calcStatsByLevel(this.participants[i].champion, matchTimeline.participantFrames[idx].level)
+
+                tmp.baseStats = this.calcStatsByLevel(this.participants[i].champion, matchTimeline.participantFrames[idx].level, participant.perks.statPerks)
                 tmp.stats = tmp.baseStats//new Stats();
                 tmp.events = matchTimeline.events.filter(function (event) {
                     if (event['participantId'] !== undefined) {
@@ -365,10 +403,23 @@ export default () => ({
 
         return decimal === 0 ? Math.round(value) : Math.round(value * 10 * decimal) / (10 * decimal)
     },
+    getItemType(id) {
+        return this.items[id.toString()].type
+    },
     addItemsToStats(isItemUpdate) {
+        let mythicItem = null;
+        let countLegendary = 0
         this.participantFrame.stats = Stats.copy(this.participantFrame.baseStats)
         for (let itemId of this.myItemList) {
+            console.log('type', this.getItemType(itemId))
             let item = this.items[itemId.toString()]
+            if (item.type === 'legendary') {
+                countLegendary++
+            } else if (item.type === 'mythic') {
+                mythicItem = item;
+            }
+
+
             if (item !== null) {
                 for (let statName in item.stats_description) {
                     let value = item.stats_description[statName]
@@ -380,7 +431,7 @@ export default () => ({
                             this.participantFrame.stats.ms += value
                             break;
                         case 'AttackSpeed':
-                            this.participantFrame.stats.as *= 1 + value
+                            this.participantFrame.stats.as += value
                             break;
                         case 'AttackDamage':
                             this.participantFrame.stats.ad += value
@@ -418,6 +469,7 @@ export default () => ({
                             if (![
                                 'PercentMovementSpeedMod',
                                 'PercentLifeStealMod',
+                                'Mythic'
 
                             ].includes(statName)) {
                                 console.log("not found", statName, value,)
@@ -427,11 +479,35 @@ export default () => ({
                 }
             }
         }
-        if (this.participantFrame.stats.ah !== 0){
-            this.participantFrame.stats.cdr = 1 -(100 / (100 + this.participantFrame.stats.ah))
+        if (mythicItem !== null) {
+            for (let statName in mythicItem.stats_description.Mythic) {
+                let stat = mythicItem.stats_description.Mythic[statName]
+                if (statName === 'lethality') {
+                    this.participantFrame.stats.armorPen += stat * countLegendary * (0.6 + 0.4 * this.participantFrame.lolStats.level / 18)
+                } else {
+                    this.participantFrame.stats[statName] += stat * countLegendary
+                }
+            }
+            this.participantFrame.stats.hp += mythicItem.stats_description.Mythic.hp * countLegendary
         }
-        if (this.participantFrame.stats.as > 2.5){
+        //calc as
+        this.participantFrame.stats.as = this.participantFrame.stats.as * this.participantFrame.baseStats.baseAs
+        if (this.participantFrame.stats.as > 2.5) {
             this.participantFrame.stats.as = 2.5
+        }
+//calc cdr
+        if (this.participantFrame.stats.ah !== 0) {
+            this.participantFrame.stats.cdr = 1 - (100 / (100 + this.participantFrame.stats.ah))
+        }
+
+//calc adaptative
+        if (this.participantFrame.stats.adaptative !== undefined) {
+            //add adataptive stat depend if participant has more ap or ad
+            if (this.participantFrame.stats.ap > this.participantFrame.stats.ad) {
+                this.participantFrame.stats.ad += this.participantFrame.stats.adaptative.ad
+            } else {
+                this.participantFrame.stats.ap += this.participantFrame.stats.adaptative.ap
+            }
         }
 
     },
@@ -445,7 +521,6 @@ export default () => ({
         if (this.participantFrame.stats.crit > 0) {
             let dps = this.participantFrame.stats.dps
             if (!hasGuinsoo) {
-                console.log(hasIe, this.participantFrame.stats.crit)
                 let critDamage = 0.75 + (hasIe ? 0.35 : 0)
                 this.participantFrame.stats.dps *= 1 + (this.participantFrame.stats.crit * critDamage)
             } else if (hasGuinsoo) {
@@ -456,17 +531,49 @@ export default () => ({
             }
             this.participantFrame.stats.critDps = this.participantFrame.stats.dps - dps
         }
-    },
-    calcStatsByLevel(champ, level) {
+    }
+    ,
+    applyLolGrowStatistic(base, grow, level) {
+        level--
+        return base + grow * level * (0.7025 + 0.0175 * level)
+
+    }
+    ,
+    calcStatsByLevel(champ, level, statPerks) {
         let champStats = champ.stats
         let stats = new Stats();
-        stats.ad = champStats.attackdamage + level * champStats.attackdamageperlevel
-        stats.armor = champStats.armor + level * champStats.armorperlevel
-        stats.mr = champStats.spellblock + level * champStats.spellblockperlevel
-        stats.as = champStats.attackspeed + level * (champStats.attackspeedperlevel / 100)
-        stats.hp = champStats.hp + level * champStats.hpperlevel
+        stats.ad = this.applyLolGrowStatistic(champStats.attackdamage, champStats.attackdamageperlevel, level)
+        stats.armor = this.applyLolGrowStatistic(champStats.armor, champStats.armorperlevel, level)
+
+        stats.hp = this.applyLolGrowStatistic(champStats.hp, champStats.hpperlevel, level)
+        stats.mr = this.applyLolGrowStatistic(champStats.spellblock, champStats.spellblockperlevel, level)
+        stats.baseAs = champStats.attackspeed
+        stats.as += this.applyLolGrowStatistic(0, champStats.attackspeedperlevel / 100, level)
+        // apply perks to stats
+        for (let perkName in statPerks) {
+            let perkId = statPerks[perkName]
+            let perkData = this.perks[perkId]
+            if (perkData.key === 'adaptative') {
+                if (stats.adaptative === undefined) {
+                    stats.adaptative = perkData.value
+
+                } else {
+                    stats.adaptative.ap += perkData.value.ap
+                    stats.adaptative.ad += perkData.value.ad
+                }
+            } else if (perkData.key === 'health') {
+                stats.hp += perkData.value.base + perkData.value.perLevel * level
+            } else if (perkData.key === 'as') {
+                stats.as += perkData.value
+            } else {
+                stats[perkData.key] += perkData.value
+            }
+
+        }
+
         return stats
-    },
+    }
+    ,
     calcGold(isItemUpdate) {
         this.totalGold = this.participantFrame.lolStats.totalGold
         if (this.toggleChangeItems && !isItemUpdate) {

@@ -20,4 +20,6 @@ Route::get('/summoner/{summonerName}/{matchId}', [Controller::class, 'getSummone
 Route::get('/get_items', [Controller::class, 'allItems']);
 
 
-Route::get('/update_items', [Controller::class, 'loadItems']);
+Route::get('scrap', [Controller::class, 'scrapLolFandom']);
+
+Route::get('/update', [Controller::class, 'loadItems']);
