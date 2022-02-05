@@ -96,7 +96,7 @@
             </div>
         </template>
         <template x-if="participantFrame != null">
-            <div>
+            <div class="">
                 <div class="mt-20 flex justify-around">
 
                     <div class="w-1/4">
@@ -109,6 +109,9 @@
                 </div>
                 <div class="mt-12">
                     <x-shop></x-shop>
+                </div>
+                <div class="absolute z-30 " x-ref="popUpDescription">
+
                 </div>
             </div>
 
