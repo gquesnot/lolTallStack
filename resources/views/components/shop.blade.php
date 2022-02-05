@@ -4,7 +4,7 @@
         <div class="flex pr-3">
 
             <template x-for="(item, idx) in myItemList">
-                <div style="max-width: 60.6167px" class="m-2" @click="removeItem(idx)" @mouseover="addPopupDescription(item, $event)" @mousover.away="closePopupDescription" @mouseout="closePopupDescription"
+                <div style="max-width: 60.6167px" class="m-2" @click="removeItem(idx);closePopupDescription()" @mouseover="addPopupDescription(item, $event)" @mousover.away="closePopupDescription" @mouseout="closePopupDescription"
                 >
 
                     <img alt=""
@@ -68,7 +68,7 @@
                             <div class="mr-3 items-center self-center w-1/4"> My Item List</div>
                             <div class="flex pr-3 w-1/2 ">
                                 <template x-for="(item, idx) in myItemList">
-                                    <div style="max-width: 60.6167px" class="m-2" @click="removeItem(idx)" @mouseover="addPopupDescription(item, $event)" @mousover.away="closePopupDescription" @mouseout="closePopupDescription"
+                                    <div style="max-width: 60.6167px" class="m-2" @click="removeItem(idx);closePopupDescription()" @mouseover="addPopupDescription(item, $event)" @mousover.away="closePopupDescription" @mouseout="closePopupDescription"
                                     >
 
                                         <img alt=""

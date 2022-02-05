@@ -459,7 +459,6 @@ export default () => ({
                 this.modItems.push(item)
             }
         }
-        console.log(this.modItems)
     },
     hasTagInCategory(tags) {
         let tagSplited = tags.split(';');
