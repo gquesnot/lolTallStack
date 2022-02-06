@@ -19,6 +19,7 @@ php artisan serve
 ## Future improvements
 - [x] add popup items stats
 - [x] add mythic stats in calculation (scraping)
-- add masteries and runes
+- [x] runes are calculated but cannot be changed
+- masteries
 - add onHit damage in dps (guinsoo already done)
 - add items passive / active  and champs spells for Combo damage 

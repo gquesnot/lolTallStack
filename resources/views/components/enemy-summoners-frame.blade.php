@@ -31,6 +31,18 @@
                         </th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Dps Ad received
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Dps Ap received
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            DPS true damage received
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             DPS received
                         </th>
 
@@ -59,9 +71,24 @@
 
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                x-text="enemyParticipantFrame.stats != undefined ? enemyParticipantFrame.stats.physicalDamageTaken: 'null'">
+                                x-text="enemyParticipantFrame.stats != undefined ? enemyParticipantFrame.stats.dpsAdReceive: 'null'">
 
                             </td>
+
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                x-text="enemyParticipantFrame.stats != undefined ? enemyParticipantFrame.stats.dpsApReceive: 'null'">
+
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                x-text="enemyParticipantFrame.stats != undefined ? enemyParticipantFrame.stats.dpsTrueDamageReceive: 'null'">
+
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                x-text="enemyParticipantFrame.stats != undefined ? enemyParticipantFrame.stats.dpsReceive: 'null'">
+
+                            </td>
+
+
 
                         </tr>
                     </template>

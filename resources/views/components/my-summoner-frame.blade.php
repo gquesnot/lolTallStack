@@ -45,6 +45,26 @@
 
                         </td>
                     </tr>
+                    <tr class="bg-white">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                            OnHit Ad:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                            x-text="round(participantFrame.stats.onHitAd)">
+
+                        </td>
+                    </tr>
+                    <tr class="bg-white">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                            OnHit Ap:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                            x-text="round(participantFrame.stats.onHitAp)">
+
+                        </td>
+                    </tr>
                     <tr class="bg-gray-50">
                         <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
                                     AS:
@@ -130,6 +150,36 @@
                         </td>
                         <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
                         x-text="round(participantFrame.stats.cdr *100) + '%'">
+
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    Dps Ad:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="participantFrame.stats.dpsAd">
+
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    Dps Ap:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="participantFrame.stats.dpsAp">
+
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    Dps True damage:
+
+                        </td>
+                        <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                        x-text="participantFrame.stats.dpsTrueDamage">
 
                         </td>
                     </tr>

@@ -110,7 +110,7 @@
                 <div class="mt-12">
                     <x-shop></x-shop>
                 </div>
-                <div class="absolute z-30 " x-ref="popUpDescription">
+                <div class="absolute z-30 " x-ref="popUpDescription" id="popUpDescription" x-init="$nextTick(() => {afterInit()})">
 
                 </div>
             </div>

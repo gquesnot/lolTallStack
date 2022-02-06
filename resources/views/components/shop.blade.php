@@ -4,7 +4,11 @@
         <div class="flex pr-3">
 
             <template x-for="(item, idx) in myItemList">
-                <div style="max-width: 60.6167px" class="m-2" @click="removeItem(idx);closePopupDescription()" @mouseover="addPopupDescription(item, $event)" @mousover.away="closePopupDescription" @mouseout="closePopupDescription"
+                <div style="max-width: 60.6167px" class="m-2"
+                     @click="removeItem(idx);popover.closePopupDescription()"
+                     @mouseover="popover.addPopupDescription(item, $event)"
+                     @mousover.away="popover.closePopupDescription"
+                     @mouseout="popover.closePopupDescription"
                 >
 
                     <img alt=""
@@ -40,7 +44,7 @@
 
             </button>
             <span class="flex-grow flex flex-col ml-4">
-    <span class="text-sm font-medium text-gray-900 " id="availability-label">Change Items On Update?</span>
+    <span class="text-sm font-medium text-gray-900 " id="availability-label">block items change</span>
 
   </span>
         </div>
@@ -68,7 +72,11 @@
                             <div class="mr-3 items-center self-center w-1/4"> My Item List</div>
                             <div class="flex pr-3 w-1/2 ">
                                 <template x-for="(item, idx) in myItemList">
-                                    <div style="max-width: 60.6167px" class="m-2" @click="removeItem(idx);closePopupDescription()" @mouseover="addPopupDescription(item, $event)" @mousover.away="closePopupDescription" @mouseout="closePopupDescription"
+                                    <div style="max-width: 60.6167px" class="m-2"
+                                         @click="removeItem(idx);popover.closePopupDescription()"
+                                         @mouseover="popover.addPopupDescription(item, $event)"
+                                         @mousover.away="popover.closePopupDescription"
+                                         @mouseout="popover.closePopupDescription"
                                     >
 
                                         <img alt=""
@@ -108,7 +116,11 @@
                             <div class="overflow-auto w-3/4 flex flex-wrap content-start" style="max-height: 480px">
                                 <template x-for="item in modItems">
                                     <div class="h-16">
-                                        <div style="max-width: 60.6167px" class="m-2" @click="addItem(item.id)" @mouseover="addPopupDescription(item.id, $event)" @mousover.away="closePopupDescription" @mouseout="closePopupDescription"
+                                        <div style="max-width: 60.6167px" class="m-2"
+                                             @click="addItem(item.id)"
+                                             @mouseover="popover.addPopupDescription(item.id, $event)"
+                                             @mousover.away="popover.closePopupDescription"
+                                             @mouseout="popover.closePopupDescription"
                                         >
 
                                             <img alt=""
