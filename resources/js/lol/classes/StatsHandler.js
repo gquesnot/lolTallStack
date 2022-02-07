@@ -5,7 +5,6 @@ import {DamageTaken} from "./DamageTaken";
 export class StatsHandler{
     stats = new Stats();
     baseStats = new Stats();
-    champStats= null;
     apiStats  = null;
     damageDealt = new DamageDealt();
     damageTaken = new DamageTaken();

@@ -6,6 +6,8 @@ export class DamageTaken {
     //reducedDamage = new Damage();
     armorReduction = 0
     mrReduction = 0
+    realArmor = 0
+    realMr= 0
 
 
 }

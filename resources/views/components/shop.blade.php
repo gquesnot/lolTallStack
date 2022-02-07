@@ -3,12 +3,13 @@
 
         <div class="flex pr-3">
 
-            <template x-for="(item, idx) in myItemList">
+            <template x-for="(item, idx) in participant.items">
                 <div style="max-width: 60.6167px" class="m-2"
                      @click="removeItem(idx);popover.closePopupDescription()"
                      @mouseover="popover.addPopupDescription(item, $event)"
                      @mousover.away="popover.closePopupDescription"
                      @mouseout="popover.closePopupDescription"
+                     @click.away="popover.closePopupDescription()"
                 >
 
                     <img alt=""
@@ -56,7 +57,7 @@
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 
                 <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-                     aria-hidden="true" @click="openModal = false"></div>
+                     aria-hidden="true" @click="openModal = false;popover.closePopupDescription"></div>
 
                 <!-- This element is to trick the browser into centering the modal contents. -->
                 <span class="hidden sm:inline-block sm:align-middle sm:h-screen"
@@ -71,12 +72,14 @@
 
                             <div class="mr-3 items-center self-center w-1/4"> My Item List</div>
                             <div class="flex pr-3 w-1/2 ">
-                                <template x-for="(item, idx) in myItemList">
+                                <template x-for="(item, idx) in  participant.items">
                                     <div style="max-width: 60.6167px" class="m-2"
                                          @click="removeItem(idx);popover.closePopupDescription()"
                                          @mouseover="popover.addPopupDescription(item, $event)"
                                          @mousover.away="popover.closePopupDescription"
                                          @mouseout="popover.closePopupDescription"
+                                         @click.away="popover.closePopupDescription()"
+
                                     >
 
                                         <img alt=""
@@ -86,7 +89,7 @@
                                     </div>
                                 </template>
 
-                                <template x-if="myItemList.length == 0">
+                                <template x-if="participant.items.length == 0">
                                     <div
                                         class="w-16 h-16 block aspect-w-6 mx-2 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
 
@@ -121,6 +124,8 @@
                                              @mouseover="popover.addPopupDescription(item.id, $event)"
                                              @mousover.away="popover.closePopupDescription"
                                              @mouseout="popover.closePopupDescription"
+                                             @click.away="popover.closePopupDescription()"
+
                                         >
 
                                             <img alt=""
@@ -136,12 +141,12 @@
                             </div>
                         </div>
                         <div class="mt-5 sm:mt-6 flex justify-around">
-                            <button type="button" @click="resetItems"
+                            <button type="button" @click="resetItems;popover.closePopupDescription"
                                     class="mt-3 mx-3 w-1/3 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
                                 reset
                             </button>
 
-                            <button type="button" @click="openModal = false"
+                            <button type="button" @click="openModal = false;popover.closePopupDescription"
                                     class="w-1/3 mx-3 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
 
                                 Close

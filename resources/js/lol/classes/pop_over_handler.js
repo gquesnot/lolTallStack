@@ -8,6 +8,9 @@ export class PopOverHandler {
 
     }
 
+    closePopupDescription() {
+        document.querySelector('#popUpDescription').classList.add('hide');
+    }
     addPopupDescription(itemId, event) {
         this.popUpDescription =  document.querySelector('#popUpDescription');
         if (this.popUpDescription != null){

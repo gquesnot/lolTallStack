@@ -8,9 +8,10 @@ export class Participant {
     frames = [];
     id;
     name;
-    items= [];
+    items = [];
     champion;
     perks;
+    teamId;
 
 
     constructor(participant) {
@@ -18,6 +19,7 @@ export class Participant {
         this.name = participant.summonerName;
         this.champion = participant.champion;
         this.perks = participant.perks
+        this.teamId = participant.teamId;
     }
 
 
@@ -25,8 +27,9 @@ export class Participant {
         for (let i = 0; i < matchTimeLine.frames.length; i++) {
             let frame = matchTimeLine.frames[i];
             let participantFrame = frame.participantFrames[this.id]
-            let stats = new StatsHandler(participantFrame, this.calcStatsByLevel(participantFrame.level))
-            let events= [];
+            let stats = new StatsHandler(this.calcStatsByLevel(participantFrame.level), participantFrame)
+
+            let events = [];
 
             events = frame.events.filter((event) => {
                 if (event['participantId'] !== undefined) {
@@ -40,22 +43,22 @@ export class Participant {
                         return true;
                     }
                 }
-                let tmpEvents = {}
+            });
+            let tmpEvents = {}
 
-                for (let event of events) {
-                    let timestampString = event.timestamp.toString()
-                    if (!tmpEvents.hasOwnProperty(timestampString)) {
-                        tmpEvents[timestampString] = {
-                            type: event.type.includes('ITEM') ? 'ITEM' : 'OTHER',
-                            events: []
-                        };
-                    }
-                    tmpEvents[timestampString].events.push(event)
+            for (let event of events) {
+                let timestampString = event.timestamp.toString()
+                if (!tmpEvents.hasOwnProperty(timestampString)) {
+                    tmpEvents[timestampString] = {
+                        type: event.type.includes('ITEM') ? 'ITEM' : 'OTHER',
+                        events: []
+                    };
                 }
-                return false
-            })
+                tmpEvents[timestampString].events.push(event)
+            }
 
-            this.frames.push(new Frame(events, stats));
+
+            this.frames.push(new Frame(tmpEvents, stats));
         }
     }
 

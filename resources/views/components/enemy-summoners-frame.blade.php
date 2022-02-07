@@ -7,12 +7,13 @@
                     <tr>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Summoner Name
+
                         </th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Champ Name
+                            Summoner Name
                         </th>
+
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Armor
@@ -48,51 +49,55 @@
 
                     </tr>
                     </thead>
-                    <tbody>
-                    <template x-for="(enemyParticipantFrame,idx) in enemyParticipantsFrame">
-                        <tr :class=" idx %2 === 0  ?'bg-white' : 'bg-gray-100'">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                                x-text="enemyParticipantFrame.summonerName">
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                x-text="enemyParticipantFrame.championName">
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                x-text="enemyParticipantFrame.stats != undefined ? (enemyParticipantFrame.stats.armor === enemyParticipantFrame.stats.realArmor ? round(enemyParticipantFrame.stats.armor) : `${round(enemyParticipantFrame.stats.armor)} -> ${enemyParticipantFrame.stats.realArmor}`): 'null'">
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                x-text="enemyParticipantFrame.stats != undefined ? (enemyParticipantFrame.stats.mr === enemyParticipantFrame.stats.realMr ? round(enemyParticipantFrame.stats.mr) : `${round(enemyParticipantFrame.stats.mr)} -> ${enemyParticipantFrame.stats.realMr}`): 'null'">
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                x-text="(enemyParticipantFrame.stats != undefined ? round(enemyParticipantFrame.stats.physicalDamageReductionPercent * 100) : '0') + '%'">
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                x-text="(enemyParticipantFrame.stats != undefined ? round(enemyParticipantFrame.stats.magicalDamageReductionPercent * 100 ) : '0') + '%'">
+                    <template x-if="enemyParticipants != null">
+                        <tbody>
+                        <template x-for="(enemyParticipant,idx) in enemyParticipants">
+                            <tr :class=" idx %2 === 0  ?'bg-white' : 'bg-gray-100'">
+                                <td class=" py-2 whitespace-nowrap text-sm font-medium text-gray-900 flex justify-center content-center" >
+                                    <img :src="'http://ddragon.leagueoflegends.com/cdn/' + version+'/img/champion/' + enemyParticipant.champion.name + '.png'"
+                                         class="h-10 w-10 rounded-full" alt="">
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                    x-text="enemyParticipant.name">
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                    x-text="`${round(enemyParticipant.frames[frameId].stats.stats.armor)} -> ${enemyParticipant.frames[frameId].stats.damageTaken.realArmor}`">
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                    x-text="`${round(enemyParticipant.frames[frameId].stats.stats.mr)} -> ${enemyParticipant.frames[frameId].stats.damageTaken.realMr}`">
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                    x-text="round(enemyParticipant.frames[frameId].stats.damageTaken.armorReduction * 100) + '%'">
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                    x-text="round(enemyParticipant.frames[frameId].stats.damageTaken.mrReduction * 100 ) + '%'">
 
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                x-text="enemyParticipantFrame.stats != undefined ? enemyParticipantFrame.stats.dpsAdReceive: 'null'">
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                    x-text=" enemyParticipant.frames[frameId].stats.damageTaken.dps.ad">
 
-                            </td>
+                                </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                x-text="enemyParticipantFrame.stats != undefined ? enemyParticipantFrame.stats.dpsApReceive: 'null'">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                    x-text="enemyParticipant.frames[frameId].stats.damageTaken.dps.ap">
 
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                x-text="enemyParticipantFrame.stats != undefined ? enemyParticipantFrame.stats.dpsTrueDamageReceive: 'null'">
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                    x-text="enemyParticipant.frames[frameId].stats.damageTaken.dps.true">
 
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                x-text="enemyParticipantFrame.stats != undefined ? enemyParticipantFrame.stats.dpsReceive: 'null'">
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                    x-text="enemyParticipant.frames[frameId].stats.damageTaken.dps.total()">
 
-                            </td>
+                                </td>
 
 
 
-                        </tr>
+                            </tr>
+                        </template>
+                        </tbody>
                     </template>
-                    </tbody>
+
                 </table>
             </div>
         </div>

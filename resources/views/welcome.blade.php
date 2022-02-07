@@ -52,8 +52,9 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2">
                             Summoners
                         </label>
-                        <select x-model="participantName"
-                                x-on:change="selectParticipant"
+                        <select
+
+                                x-on:change="selectParticipant($el.value)"
                                 class="form-select appearance-none
               block
               w-full
@@ -70,8 +71,8 @@
               m-0
               focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 aria-label="Default select example">
-                            <template x-for="(participant, idx) in participants" :key="participant.summonerName">
-                                <option :selected="summonerName === participant.summonerName" :value="participant.summonerName" x-text="participant.summonerName  + ' - '+ participant.championName"></option>
+                            <template x-for="(participant, idx) in participants" :key="participant.id">
+                                <option :selected="participantId === participant.id"  :value="participant.id" x-text="participant.name  + ' - '+ participant.champion.name"></option>
                             </template>
 
 
