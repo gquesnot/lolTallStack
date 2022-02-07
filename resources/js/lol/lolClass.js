@@ -1,94 +1,9 @@
-import {itemsCategory, itemsOnHit} from "./itemsCategory";
-import {ItemList} from "./ItemsList";
-import PopOverHandler from './classes/pop_over_handler';
-import Pop_hover_handler from "./classes/pop_over_handler";
+import {itemsCategory} from "./datas/itemsCategory";
+import {ItemList} from "./classes/ItemsList";
+import {PopOverHandler} from './classes/pop_over_handler';
+import {Participant} from "./classes/Participant";
 
 const v8 = require('v8');
-
-class Stats {
-    ad = 0
-    ap = 0
-    as = 1
-    crit = 0
-    armorPen = 0
-    armorPenPercent = 0
-    armorPenBonusPercent = 0
-    magicPen = 0
-    magicPenPercent = 0
-    magicPenBonusPercent = 0
-    hp = 0
-    armor = 0
-    dpsAd = 0
-    dpsAp = 0
-    dpsTrueDamage = 0
-    dps = 0
-    realArmor = 0
-    realMr = 0
-    critDps = 0
-    adTakenPercent = 0
-    apTakenPercent = 0
-    adReceive = 0
-    apReceive = 0
-    trueDamageReceive = 0
-    mr = 0
-    ah = 0
-    cdr = 0
-    baseAs = 0
-    adaptative
-    onHitAd = 0
-    onHitAp = 0
-    onHitTrueDamage= 0
-
-
-    constructor() {
-    }
-
-    static copy(stat) {
-        let stats = new Stats();
-        let data = JSON.parse(JSON.stringify(stat))
-        stats.ad = data.ad
-        stats.ap = data.ap
-        stats.as = data.as
-        stats.realArmor = data.realArmor
-        stats.realMr = data.realMr
-        stats.crit = data.crit
-        stats.armorPen = data.armorPen
-        stats.armorPenPercent = data.armorPenPercent
-        stats.armorPenBonusPercent = data.armorPenBonusPercent
-        stats.magicPen = data.magicPen
-        stats.magicPenPercent = data.magicPenPercent
-        stats.magicPenBonusPercent = data.magicPenBonusPercent
-        stats.hp = data.hp
-        stats.armor = data.armor
-        stats.mr = data.mr
-        stats.dps = data.dps
-        stats.adTakenPercent = data.adTakenPercent
-        stats.apTakenPercent = data.apTakenPercent
-        stats.adReceive = data.adReceive
-        stats.critDps = data.critDps
-        return stats
-    }
-
-    static fromLolFrameStats(lolFrameStats) {
-        let newStats = new Stats();
-        newStats.ap = lolFrameStats.abilityPower
-        newStats.armor = lolFrameStats.armor
-        newStats.mr = lolFrameStats.magicResist
-        newStats.armorPen = lolFrameStats.armorPen
-        newStats.armorPenPercent = lolFrameStats.armorPenPercent
-        newStats.ad = lolFrameStats.attackDamage
-        newStats.as = lolFrameStats.attackSpeed / 100
-        newStats.armorPenBonusPercent = lolFrameStats.bonusArmorPenPercent
-        newStats.magicPenBonusPercent = lolFrameStats.bonusMagicPenPercent
-        newStats.cdr = lolFrameStats.cooldownReduction
-        newStats.hp = lolFrameStats.healthMax
-        newStats.magicPen = lolFrameStats.magicPen
-        newStats.magicPenPercent = lolFrameStats.magicPenPercent
-        newStats.ms = lolFrameStats.movementSpeed
-        return newStats
-    }
-}
-
 
 export default () => ({
     itemsCategory: [],
@@ -110,38 +25,6 @@ export default () => ({
     enemyParticipantsFrame: null,
     openModal: false,
     toggleChangeItems: false,
-    perks: {
-        5002: {
-            key: 'armor',
-            value: 6
-        },
-        5008: {
-            key: 'adaptative',
-            value: {
-                ad: 5.4,
-                ap: 9
-            }
-        },
-        5001: {
-            key: 'health',
-            value: {
-                base: 7.7,
-                perLevel: 7.35
-            }
-        },
-        5007: {
-            key: 'ah',
-            value: 8
-        },
-        5005: {
-            key: 'as',
-            value: 0.1
-        },
-        5003: {
-            key: 'mr',
-            value: 8
-        }
-    },
     items: [],
     modItems: [],
     myItemList: [],
@@ -176,62 +59,19 @@ export default () => ({
         if (this.matchs) {
             this.matchId = this.matchs[0]
             await this.loadMatch()
-            this.selectParticipant()
         }
     },
 
 
     fillTimelineInParticipants(matchTimelines) {
-        let newMatchTimeline = [];
-        let newParticipants = [];
-        console.log(this.participants, matchTimelines.frames[0].participantFrames)
+        let participants = [];
         for (let i in this.participants) {
             let idx = parseInt(i) + 1
-            console.log(i, idx)
-            let participant = this.participants[i]
-
-            this.participants[i].stats = new Stats();
-            console.log('participant', participant)
-            let frames = [];
-            for (let matchTimeline of matchTimelines.frames) {
-                let tmp = {}
-                tmp.lolStats = matchTimeline.participantFrames[idx]
-
-                tmp.baseStats = this.calcStatsByLevel(this.participants[i].champion, matchTimeline.participantFrames[idx].level, participant.perks.statPerks)
-                tmp.stats = tmp.baseStats//new Stats();
-                tmp.events = matchTimeline.events.filter(function (event) {
-                    if (event['participantId'] !== undefined) {
-                        return event['participantId'] === idx;
-                    } else if (event['killerId'] !== undefined) {
-                        if (event['killerId'] === idx) {
-                            return true;
-                        }
-                    } else if (event['victimId'] !== undefined) {
-                        if (event['victimId'] === idx) {
-                            return true;
-                        }
-                    }
-                    return false
-                })
-                let tmpEvents = {}
-
-                for (let event of tmp.events) {
-                    let timestampString = event.timestamp.toString()
-                    if (!tmpEvents.hasOwnProperty(timestampString)) {
-                        tmpEvents[timestampString] = {
-                            type: event.type.includes('ITEM') ? 'ITEM' : 'OTHER',
-                            events: []
-                        };
-                    }
-                    tmpEvents[timestampString].events.push(event)
-                }
-                tmp.events = tmpEvents
-
-                frames.push(tmp)
-            }
-
-            this.participants[i].frames = frames;
+            let participant = new Participant(this.participants[i])
+            participant.fillFrames(matchTimelines)
+            participants.push(participant)
         }
+        this.participants = participants
     },
 
     async loadMatch() {
@@ -244,6 +84,7 @@ export default () => ({
         this.maxFrame = allInfo.maxFrame
         for (let idx in this.participants) {
             let participant = this.participants[idx]
+            console.log(participant)
             if (this.summonerName.toLowerCase().trim() === participant.summonerName.toLowerCase().trim()) {
                 this.summonerName = this.participantName = participant.summonerName
 

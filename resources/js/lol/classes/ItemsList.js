@@ -1,10 +1,8 @@
-import on from "alpinejs";
-
 export class ItemList {
     items = []
-    toBuy = []
+    toBuy  =  []
     goldDiff = 0
-    baseItems = {}
+    baseItems= {}
     events = []
 
     constructor(baseItems) {
@@ -81,7 +79,7 @@ export class ItemList {
                     this.toBuy.push(itemId)
                 }
                 if (event.afterId !== 0) {
-                    this.applyItemPurchased({itemId: event.afterId}, true)
+                    this.applyItemPurchased({itemId: event.afterId})
                 }
             }
         }

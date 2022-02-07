@@ -1,6 +1,6 @@
-@extends('layouts.app')
+    @extends('layouts.app')
 
-@section('content')
+    @section('content')
     <div class="w-11/12 m-auto" x-data="lolClass">
         <div class="w-1/4">
             <h1>Lol History</h1>
