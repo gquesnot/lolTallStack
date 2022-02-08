@@ -5,7 +5,7 @@ export class Damage{
     crit = 0;
 
 
-        total(){
-        return this.ap + this.ad + this.true + this.crit;
+        total(withoutCrit =false){
+        return this.ap + this.ad + this.true + (!withoutCrit ? this.crit : 0);
     }
 }

@@ -9,4 +9,8 @@ export class Frame{
         this.stats = stats;
     }
 
+    resetStats(){
+        this.stats.reset();
+    }
+
 }

@@ -79,7 +79,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="w-3/4 h-10">
+                <div class="w-3/4 h-10 ml-44">
                     <div class="relative pt-1 flex flex-col">
                         <label for="customRange1" class="form-label">Match Timelines : <span x-text="frameId"></span>
                             minutes</label>
@@ -98,9 +98,9 @@
         </template>
         <template x-if="participantFrame != null">
             <div class="">
-                <div class="mt-20 flex justify-around">
+                <div class="mt-20 flex justify-between">
 
-                    <div class="w-1/4">
+                    <div class="w-1/4 ml-5">
                         <x-my-summoner-frame></x-my-summoner-frame>
                     </div>
                     <div class="w-2/3">

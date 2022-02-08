@@ -55,38 +55,38 @@ export class PopOverHandler {
             let mainDiv = document.createElement("div");
             mainDiv.innerHTML = desc;
             this.popUpDescription.appendChild(mainDiv);
+            this.popUpDescription.classList.remove('hide');
 
 
             setTimeout(() => {
-                if (this.popUpDescription !=null){
-                    let width = window.innerWidth
-                    let height = window.innerHeight
-                    let popupWidth = this.popUpDescription.clientWidth
-                    let popupHeight = this.popUpDescription.clientHeight
-                    let iconWidth = event.target.width
-                    let iconHeight = event.target.height
 
-                    this.popUpDescription.classList.add('hide')
-                    let posX = event.clientX + iconWidth / 2
-                    let posY = event.clientY - popupHeight / 2 + window.scrollY
-                    if (width < posX + popupWidth) {
-                        posX = event.clientX - popupWidth - iconWidth
-                    }
+                let width  = window.innerWidth
+                let height = window.innerHeight
+                let popupWidth = this.popUpDescription.clientWidth
+                let popupHeight = this.popUpDescription.clientHeight
+                let iconWidth = event.target.width
+                let iconHeight = event.target.height
 
 
-                    if (height < event.clientY + popupHeight / 2 + 20) {
-                        posY = event.clientY - popupHeight + window.scrollY
-                    } else if (event.clientY - popupHeight - 20 < 0) {
-                        posY = event.clientY + window.scrollY
-                    }
-                    this.popUpDescription.style.left = posX + 'px'
-                    this.popUpDescription.style.top = posY + 'px'
-                    this.popUpDescription.classList.remove('hide')
+                this.popUpDescription.classList.add('hide')
+                let posX = event.clientX + iconWidth / 2
+                let posY = event.clientY - popupHeight / 2 + window.scrollY
+                if (width < posX + popupWidth) {
+                    posX = event.clientX - popupWidth - iconWidth
                 }
 
 
+                if (height < event.clientY + popupHeight / 2 + 20) {
+                    posY = event.clientY - popupHeight + window.scrollY
+                } else if (event.clientY - popupHeight - 20 < 0) {
+                    posY = event.clientY + window.scrollY
+                }
+                this.popUpDescription.style.left = posX + 'px'
+                this.popUpDescription.style.top = posY + 'px'
+                this.popUpDescription.classList.remove('hide')
 
-            }, 25)
+
+            }, 150)
         }
 
 

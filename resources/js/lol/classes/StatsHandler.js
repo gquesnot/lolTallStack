@@ -15,4 +15,11 @@ export class StatsHandler{
         this.stats = this.baseStats;
     }
 
+    // reset stats that should be reset on new update
+    reset(){
+        this.stats = this.baseStats;
+        this.damageDealt.reset();
+        this.damageTaken.reset();
+    }
+
 }

@@ -36,6 +36,16 @@
 
                             </td>
                         </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                Level :
+
+                            </td>
+                            <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
+                                x-text="participantFrame.stats.apiStats.level">
+
+                            </td>
+                        </tr>
                         <tr class="bg-white">
                             <td class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
                                 AD:
@@ -160,7 +170,7 @@
 
                             </td>
                             <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
-                                x-text="participantFrame.stats.damageDealt.dps.ad">
+                                x-text="round(participantFrame.stats.damageDealt.dps.ad)">
 
                             </td>
                         </tr>
@@ -170,7 +180,7 @@
 
                             </td>
                             <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
-                                x-text="participantFrame.stats.damageDealt.dps.ap">
+                                x-text="round(participantFrame.stats.damageDealt.dps.ap)">
 
                             </td>
                         </tr>
@@ -180,7 +190,7 @@
 
                             </td>
                             <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
-                                x-text="participantFrame.stats.damageDealt.dps.true ">
+                                x-text="round(participantFrame.stats.damageDealt.dps.true)">
 
                             </td>
                         </tr>
@@ -190,7 +200,7 @@
 
                             </td>
                             <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"
-                                x-text="`${round(participantFrame.stats.damageDealt.dps.total())} = (${round(participantFrame.stats.damageDealt.dps.total() - participantFrame.stats.damageDealt.dps.crit)} + crit: ${round(participantFrame.stats.damageDealt.dps.crit)})`">
+                                x-text="`${round(participantFrame.stats.damageDealt.dps.total(true)) } = (${round(participantFrame.stats.damageDealt.dps.total(true) - participantFrame.stats.damageDealt.dps.crit)} + crit: ${round(participantFrame.stats.damageDealt.dps.crit)})`">
 
                             </td>
                         </tr>
